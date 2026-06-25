@@ -1,0 +1,4 @@
+komari repo=https://github.com/suckdrygod/komari ref=1.2.5-tg.25 commit=267e20922192afec4586886378df8661f2b9ec78
+tcpping repo=https://github.com/suckdrygod/tcpping ref=v1.2.13-safe.13 commit=aa379696c97d9ad09eff82b0065a89cfa00ae3a0
+komari-web repo=https://github.com/suckdrygod/komari-web ref=radix commit=ea27b292360d0c0cc61c0ad66765a761e3d604cb
+

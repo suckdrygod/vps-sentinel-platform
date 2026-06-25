@@ -1,0 +1,9 @@
+.env
+.env.*
+!.env.example
+data/
+sources/
+.vps-sentinel/
+*.log
+.DS_Store
+

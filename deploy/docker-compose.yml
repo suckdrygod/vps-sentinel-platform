@@ -1,0 +1,52 @@
+name: ${COMPOSE_PROJECT_NAME:-vps-sentinel-platform}
+
+networks:
+  sentinel:
+    external: true
+    name: ${VPS_SENTINEL_NETWORK:-vps-sentinel-external}
+
+services:
+  komari:
+    profiles:
+      - backend
+    image: ${KOMARI_IMAGE:-ghcr.io/suckdrygod/komari:1.2.5-tg.25}
+    container_name: ${COMPOSE_PROJECT_NAME:-vps-sentinel-platform}-komari
+    restart: unless-stopped
+    networks:
+      - sentinel
+    ports:
+      - "${KOMARI_HOST:-127.0.0.1}:${KOMARI_PORT:-25874}:25774"
+    volumes:
+      - ${KOMARI_DATA_DIR:-./data/komari}:/app/data
+
+  komari-web:
+    profiles:
+      - frontend
+    image: node:22-alpine
+    container_name: ${COMPOSE_PROJECT_NAME:-vps-sentinel-platform}-komari-web
+    restart: "no"
+    working_dir: /work
+    networks:
+      - sentinel
+    ports:
+      - "${KOMARI_WEB_HOST:-127.0.0.1}:${KOMARI_WEB_PORT:-25875}:4173"
+    volumes:
+      - ${SOURCE_DIR:-./sources}/komari-web:/src:ro
+    command: >
+      sh -lc "cp -a /src/. /work &&
+      npm ci &&
+      npm run build &&
+      npm run preview -- --host 0.0.0.0 --port 4173"
+
+  tcpping-agent:
+    profiles:
+      - agent
+    image: debian:12-slim
+    container_name: ${COMPOSE_PROJECT_NAME:-vps-sentinel-platform}-tcpping-agent-placeholder
+    restart: "no"
+    networks:
+      - sentinel
+    command: >
+      sh -lc "echo 'Agent is intentionally disabled by default.';
+      echo 'Use ./deploy/install.sh --print-agent-command and a panel token to install it manually.';
+      sleep infinity"
