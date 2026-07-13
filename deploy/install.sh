@@ -138,16 +138,8 @@ clone_or_update() {
   fi
 
   git -C "$dest" fetch --tags origin
-
-  case "$name" in
-    komari-web)
-      git -C "$dest" fetch origin "$ref"
-      git -C "$dest" checkout --detach "$commit"
-      ;;
-    *)
-      git -C "$dest" checkout --detach "$ref"
-      ;;
-  esac
+  git -C "$dest" fetch origin "$ref"
+  git -C "$dest" checkout --detach "$commit"
 
   actual="$(git -C "$dest" rev-parse HEAD)"
   if [ "$actual" != "$commit" ]; then
@@ -208,11 +200,11 @@ else
   echo "Create it manually, or rerun with --create-network when you are ready."
 fi
 
-clone_or_update "komari" "${KOMARI_REPO:-https://github.com/suckdrygod/komari.git}" "${KOMARI_REF:-1.2.5-tg.25}" "${KOMARI_COMMIT:-267e20922192afec4586886378df8661f2b9ec78}"
+clone_or_update "komari" "${KOMARI_REPO:-https://github.com/suckdrygod/komari.git}" "${KOMARI_REF:-release/1.2.6-tg.32}" "${KOMARI_COMMIT:-689968acc219f227338e473a886f5590cee6026d}"
 clone_or_update "tcpping" "${TCPPING_REPO:-https://github.com/suckdrygod/tcpping.git}" "${TCPPING_REF:-v1.2.13-safe.13}" "${TCPPING_COMMIT:-aa379696c97d9ad09eff82b0065a89cfa00ae3a0}"
-clone_or_update "komari-web" "${KOMARI_WEB_REPO:-https://github.com/suckdrygod/komari-web.git}" "${KOMARI_WEB_REF:-radix}" "${KOMARI_WEB_COMMIT:-ea27b292360d0c0cc61c0ad66765a761e3d604cb}"
+clone_or_update "komari-web" "${KOMARI_WEB_REPO:-https://github.com/suckdrygod/komari-web.git}" "${KOMARI_WEB_REF:-radix}" "${KOMARI_WEB_COMMIT:-96d3c74eacf476aa915d6448fb95ee9663942b98}"
 
-docker pull "${KOMARI_IMAGE:-ghcr.io/suckdrygod/komari:1.2.5-tg.25}"
+docker pull "${KOMARI_IMAGE:-ghcr.io/suckdrygod/komari:1.2.6-tg.32}"
 
 profiles=()
 if [ "$START_BACKEND" = true ]; then
