@@ -14,7 +14,7 @@ The default command:
 2. creates `.env` from `config/example.env` when absent;
 3. checks whether the external Docker network exists;
 4. checks out pinned child repositories into `sources/`;
-5. pulls `ghcr.io/suckdrygod/komari:1.2.5-tg.25`;
+5. pulls `ghcr.io/suckdrygod/komari:1.2.6-tg.32`;
 6. starts nothing unless a start flag is provided.
 
 The installer does not create the external Docker network unless you explicitly opt in:
