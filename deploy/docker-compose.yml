@@ -9,7 +9,7 @@ services:
   komari:
     profiles:
       - backend
-    image: ${KOMARI_IMAGE:-ghcr.io/suckdrygod/komari:1.2.5-tg.25}
+    image: ${KOMARI_IMAGE:-ghcr.io/suckdrygod/komari:1.2.6-tg.32}
     container_name: ${COMPOSE_PROJECT_NAME:-vps-sentinel-platform}-komari
     restart: unless-stopped
     networks:
